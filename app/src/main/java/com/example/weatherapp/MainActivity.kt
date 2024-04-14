@@ -27,8 +27,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        fetchWeatherData("mumbai")
-        searchWeatherDataByCity()
+
+        val isConnected = NoInternetUtils.isOnline(this)
+
+        if (isConnected) {
+            fetchWeatherData("mumbai")
+            searchWeatherDataByCity()
+        } else {
+            NoInternetUtils.showNoInternet(this)
+        }
     }
 
     private fun searchWeatherDataByCity() {
@@ -40,18 +47,19 @@ class MainActivity : AppCompatActivity() {
                     val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(searchText.windowToken, 0)
                     searchText.setQuery("", false)
+                    searchText.clearFocus()
                 }
                 return true
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
             }
-
         })
     }
 
     private fun fetchWeatherData(cityName: String) {
+        LoaderUtils.showDialog(this, false)
+
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BuildConfig.BASE_URL)
@@ -64,6 +72,9 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<WeatherApi>, response: Response<WeatherApi>) {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
+
+                    LoaderUtils.hideDialog()
+
                     val temperature = responseBody.main.temp.toString()
                     val tempMin = responseBody.main.temp_min.toString()
                     val tempMax = responseBody.main.temp_max.toString()

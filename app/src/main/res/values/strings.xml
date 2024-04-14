@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Weather App</string>
-    <string name="splash_description">Weather Matters,\nWe\'ve Got the Details</string>
+    <string name="no_internet">No Internet connection found \nCheck your connection.</string>
 </resources>

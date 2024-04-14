@@ -34,7 +34,7 @@
         android:text=""
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:drawableLeftCompat="@drawable/loctaion"
+        app:drawableLeftCompat="@drawable/location"
         app:layout_constraintEnd_toEndOf="@+id/searchView"
         app:layout_constraintStart_toStartOf="@+id/searchView"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/location"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sun" />
+        app:lottie_rawRes="@raw/sun1" />
 
     <TextView
         android:id="@+id/textView2"
